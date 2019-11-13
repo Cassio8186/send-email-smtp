@@ -1,0 +1,131 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "0.1.0",
+		"title": "send-email-gmail-smtp",
+		"description": "This API sends a simple email through gmail SMTP \n\n in order that works you need to do some stuff in your gmail account.\n\n You should enable less secure applications in your gmail configuration.\n\nThis can be achieved in this link https://www.google.com/settings/security/lesssecureapps\n\nAnd you should also unable captcha challenge\n\nThis can be achieved here https://accounts.google.com/b/0/displayunlockcaptcha\n\n if you really want to test it out I would suggest you to create an fake email account you don't care about. I'm new to that stuff and I don't really know if its dangerous to use your own account\n\nThough since you might not want to do all this workaround because you probably don't trust me and won't use your email account either, I took some steps ahead of you and created an email so you can test it. (Just don't change its passwords, thanks)\n\nUser: justtestthisapi@gmail.com\npassword:justreallytestit",
+		"license": {
+			"name": "MIT",
+			"url": "http://opensource.org/licenses/MIT"
+		}
+	},
+	"host": "send-email-smtp-cas.herokuapp.com",
+	"basePath": "/",
+	"schemes": [
+		"https"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/send": {
+			"post": {
+				"tags": [
+					"Post"
+				],
+				"summary": "Sends email from gmail.",
+				"description": "it sends email from your adress to a chosen destination adress",
+				"parameters": [
+					{
+						"name": "to",
+						"in": "query",
+						"description": "Destination email adress",
+						"type": "string",
+						"required": true,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "text",
+						"in": "query",
+						"description": "Email's text content",
+						"type": "string",
+						"required": true,
+						"allowEmptyValue": false
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object",
+							"required": [
+								"Sucess"
+							],
+							"properties": {
+								"Sucess": {
+									"type": "string"
+								}
+							},
+							"example": {
+								"Sucess": "Email sent 250 2.0.0 OK  1573691189 l14sa1d95w3wq2j.12 - gsmtp"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"schema": {
+							"type": "object",
+							"required": [
+								"Error"
+							],
+							"properties": {
+								"Error": {
+									"type": "object",
+									"description": "Error received from gmail",
+									"properties": {
+										"code": {
+											"type": "string",
+											"example": "EAUTH"
+										},
+										"response": {
+											"type": "string",
+											"description": "Error description",
+											"example": "535-5.7.8 Username and Password not accepted. Learn more at\n\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials s63sm1765081qkf.129 - gsmtp"
+										},
+										"responseCode": {
+											"type": "string",
+											"example": 535
+										},
+										"command": {
+											"type": "string"
+										}
+									}
+								},
+								"Message": {
+									"type": "string",
+									"description": "Possible solution for the error",
+									"example": "If you think you might have inserted user and password right then enable less secure app and display unlockcaptcha"
+								},
+								"displayunlockcaptcha": {
+									"type": "string",
+									"example": "https://accounts.google.com/b/0/displayunlockcaptcha",
+									"description": "link to unable gmail security in order to SMTP works"
+								},
+								"lesssecureapp": {
+									"type": "string",
+									"example": "https://www.google.com/settings/security/lesssecureapps",
+									"description": "link to unable gmail security in order to SMTP works"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"security": [
+		{
+			"UserSecurity": []
+		}
+	],
+	"securityDefinitions": {
+		"UserSecurity": {
+			"type": "basic",
+			"description": "Gmail adress and its password"
+		}
+	},
+	"externalDocs": {
+		"description": "Github project",
+		"url": "https://github.com/Cassio8186/send-email-smtp"
+	}
+}
