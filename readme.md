@@ -14,3 +14,16 @@ Though since you might not want to do all this workaround because you probably d
 
 User: justtestthisapi@gmail.com  
 password:justreallytestit
+
+## Technologies
+
+- Node Js (Express)
+- Unit Test (Jest )
+- Swagger UI
+
+## To run the project
+
+- Install packages: `yarn install`
+- Run API: `yarn dev`
+- To run tests: `yarn jest`
+- Acess URL: `localhost:3000`
