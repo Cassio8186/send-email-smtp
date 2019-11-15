@@ -15,6 +15,8 @@ Though since you might not want to do all this workaround because you probably d
 User: justtestthisapi@gmail.com  
 password:justreallytestit
 
+You can test it in [Swagger UI](https://send-email-smtp-cas.herokuapp.com/)
+
 ## Technologies
 
 - Node Js (Express)
@@ -27,3 +29,7 @@ password:justreallytestit
 - Run API: `yarn dev`
 - To run tests: `yarn jest`
 - Acess URL: `localhost:3000`
+
+---
+
+If you think you anything in this project could be better, please submit an issue or even a pull request, your help is more than welcome.

@@ -3,14 +3,6 @@ const Send = require("express").Router();
 
 const sendEmail = require("../Controller/sendEmail");
 
-/**
- * Query params
- * user
- * pass
- * to
- * text
- */
-
 Send.post("/send", async (req, res) => {
 	try {
 		//TODO put decode user into a middleware
