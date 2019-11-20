@@ -29,7 +29,9 @@ const sendEmail = (user, to, text, pass) => {
 		const invalidEmail = toArray.filter(tos => {
 			return !isEmail(tos.trim());
 		});
-		console.log(invalidEmail);
+		if (invalidEmail.length > 0) {
+			reject("insert valid receiver email adress");
+		}
 
 		const transporter = nodemailer.createTransport(
 			smtpTransport({
@@ -57,16 +59,4 @@ const sendEmail = (user, to, text, pass) => {
 	});
 };
 
-const user = "justtestthisapi@gmail.com";
-const to = "justtestthisapi@gmail.com, cassio8186@gmail.com";
-const text = "Testing with jest";
-const pass = "justreallytestit";
-
-const toArray = to.split(",");
-
-if (invalidEmail) {
-	console.log("insert a valid sender email adress");
-}
-
-console.log(invalidEmail);
 module.exports = sendEmail;

@@ -4,6 +4,7 @@ const request = require("supertest")("localhost:3000");
 const email = {
 	user: "justtestthisapi@gmail.com",
 	to: "justtestthisapi@gmail.com",
+	tomany: "justtestthisapi@gmail.com",
 	text: "Testing with jest",
 	pass: "justreallytestit"
 };
@@ -21,7 +22,7 @@ describe("POST /Send", () => {
 		expect(response.body.Sucess).toBeTruthy();
 	});
 });
-
+//TODO - Add send with many receivers
 describe("POST /Send missing all informations", () => {
 	test("responds with error due ", async () => {
 		const response = await request
