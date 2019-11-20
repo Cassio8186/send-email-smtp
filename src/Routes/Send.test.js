@@ -1,20 +1,5 @@
 "use strict";
-const request = require("supertest");
-const app = require("../app");
-/**
- * workaround for jest was detecting open handle keeps
- * https://github.com/visionmedia/supertest/issues/520
- */
-let server, agent;
-beforeEach(done => {
-	server = app.listen(3000, err => {
-		if (err) return err;
-		agent = request.agent(server);
-		done();
-	});
-});
-
-afterEach(done => server && server.close(done));
+const request = require("supertest")("localhost:3000");
 
 const email = {
 	user: "justtestthisapi@gmail.com",
@@ -26,7 +11,7 @@ const { user, to, text, pass } = email;
 
 describe("POST /Send", () => {
 	test("responds with email sucess", async () => {
-		const response = await agent
+		const response = await request
 			.post("/send/")
 			.auth(user, pass, { type: "basic" })
 			.query({ to })
@@ -39,7 +24,7 @@ describe("POST /Send", () => {
 
 describe("POST /Send missing all informations", () => {
 	test("responds with error due ", async () => {
-		const response = await agent
+		const response = await request
 			.post("/send/")
 			.query({ user })
 			.query({ text })
@@ -53,7 +38,7 @@ describe("POST /Send missing all informations", () => {
 
 describe("POST /Send  with wrong password", () => {
 	test("responds with failure", async () => {
-		const response = await agent
+		const response = await request
 			.post("/send/")
 			.query({ user })
 			.query({ text })
@@ -77,7 +62,7 @@ describe("POST /Send  with wrong password", () => {
 
 describe("POST /Send without authentication", () => {
 	test("responds with failure", async () => {
-		const response = await agent
+		const response = await request
 			.post("/send/")
 			.query({ user })
 			.query({ text })
@@ -91,7 +76,7 @@ describe("POST /Send without authentication", () => {
 
 describe("POST /Send invalid sender email adress", () => {
 	test("responds with failure", async () => {
-		const response = await agent
+		const response = await request
 			.post("/send/")
 			.auth(user, pass, { type: "basic" })
 			.query({ user })
