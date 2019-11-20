@@ -3,6 +3,13 @@ const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
 const { isEmail } = require("validator");
 
+/**
+ *
+ * @param {string} user
+ * @param {string} to
+ * @param {string} text
+ * @param {string} pass
+ */
 const sendEmail = (user, to, text, pass) => {
 	return new Promise((resolve, reject) => {
 		if (
@@ -16,9 +23,13 @@ const sendEmail = (user, to, text, pass) => {
 		if (!isEmail(user)) {
 			reject("insert a valid destination email adress");
 		}
-		if (!isEmail(to)) {
-			reject("insert a valid sender email adress");
-		}
+
+		const toArray = to.split(",");
+
+		const invalidEmail = toArray.filter(tos => {
+			return !isEmail(tos.trim());
+		});
+		console.log(invalidEmail);
 
 		const transporter = nodemailer.createTransport(
 			smtpTransport({
@@ -46,4 +57,16 @@ const sendEmail = (user, to, text, pass) => {
 	});
 };
 
+const user = "justtestthisapi@gmail.com";
+const to = "justtestthisapi@gmail.com, cassio8186@gmail.com";
+const text = "Testing with jest";
+const pass = "justreallytestit";
+
+const toArray = to.split(",");
+
+if (invalidEmail) {
+	console.log("insert a valid sender email adress");
+}
+
+console.log(invalidEmail);
 module.exports = sendEmail;

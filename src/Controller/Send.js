@@ -25,4 +25,5 @@ const Send = {
 		}
 	}
 };
+
 module.exports = Send;
