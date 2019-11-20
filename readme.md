@@ -27,8 +27,12 @@ You can test it in [Swagger UI](https://send-email-smtp-cas.herokuapp.com/)
 
 - Install packages: `yarn install`
 - Run API: `yarn dev`
-- To run tests: `yarn jest`
-- Acess URL: `localhost:3000`
+- To run tests:
+
+  - in one terminal start the server:  
+    `yarn dev`
+  - then in another terminal  
+    run tests: `yarn jest`
 
 ---
 
