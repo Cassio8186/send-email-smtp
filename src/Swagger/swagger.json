@@ -1,7 +1,7 @@
 {
 	"swagger": "2.0",
 	"info": {
-		"version": "0.1.0",
+		"version": "0.2.0",
 		"title": "send-email-gmail-smtp",
 		"description": "This API sends a simple email through gmail SMTP \n\n in order that works you need to do some stuff in your gmail account.\n\n You should enable less secure applications in your gmail configuration.\n\nThis can be achieved in this link https://www.google.com/settings/security/lesssecureapps\n\nAnd you should also unable captcha challenge\n\nThis can be achieved here https://accounts.google.com/b/0/displayunlockcaptcha\n\n if you really want to test it out I would suggest you to create an fake email account you don't care about. I'm new to that stuff and I don't really know if its dangerous to use your own account\n\nThough since you might not want to do all this workaround because you probably don't trust me and won't use your email account either, I took some steps ahead of you and created an email so you can test it. (Just don't change its passwords, thanks)\n\nUser: justtestthisapi@gmail.com\npassword:justreallytestit",
 		"license": {
@@ -24,14 +24,22 @@
 					"Post"
 				],
 				"summary": "Sends email from gmail.",
-				"description": "it sends email from your adress to a chosen destination adress",
+				"description": "it sends email from your address to one or more destination address(es)",
 				"parameters": [
 					{
 						"name": "to",
 						"in": "query",
-						"description": "Destination email adress",
+						"description": "Destination email address(es)\nExample: justtestthisapi@gmail.com, kkeaeman.test@gmail.com ",
 						"type": "string",
 						"required": true,
+						"allowEmptyValue": false
+					},
+					{
+						"name": "subject",
+						"in": "query",
+						"description": "Email's subject",
+						"type": "string",
+						"required": false,
 						"allowEmptyValue": false
 					},
 					{
@@ -49,15 +57,29 @@
 						"schema": {
 							"type": "object",
 							"required": [
-								"Sucess"
+								"success"
 							],
 							"properties": {
-								"Sucess": {
+								"success": {
 									"type": "string"
+								},
+								"accepted": {
+									"type": "array",
+									"description": "recipient addresses that were accepted by the server"
+								},
+								"rejected": {
+									"type": "array",
+									"description": "recipient addresses that were rejected by the server"
 								}
 							},
 							"example": {
-								"Sucess": "Email sent 250 2.0.0 OK  1573691189 l14sa1d95w3wq2j.12 - gsmtp"
+								"success": "Email sent 250 2.0.0 OK  1573691189 l14sa1d95w3wq2j.12 - gsmtp",
+								"accepted": [
+									"valid.email@gmail.com","anothervalid.email@gmail.com"
+								],
+								"rejected": [
+									"invalideemailjiji@gmail.com"
+								]
 							}
 						}
 					},
@@ -121,7 +143,7 @@
 	"securityDefinitions": {
 		"UserSecurity": {
 			"type": "basic",
-			"description": "Gmail adress and its password"
+			"description": "Gmail address and its password"
 		}
 	},
 	"externalDocs": {

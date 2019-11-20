@@ -1,6 +1,6 @@
 {
   "name": "send-email-smtp",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "main": "server.js",
   "repository": "https://github.com/Cassio8186/send-email-smtp.git",
   "author": "cassio8186 <cassio8186@gmail.com>",

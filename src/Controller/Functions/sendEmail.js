@@ -7,10 +7,11 @@ const { isEmail } = require("validator");
  *
  * @param {string} user
  * @param {string} to
+ * @param {string} subject
  * @param {string} text
  * @param {string} pass
  */
-const sendEmail = (user, to, text, pass) => {
+const sendEmail = (user, to, subject, text, pass) => {
 	return new Promise((resolve, reject) => {
 		if (
 			user === undefined ||
@@ -20,9 +21,6 @@ const sendEmail = (user, to, text, pass) => {
 		) {
 			reject("informations not fulfilled");
 		}
-		if (!isEmail(user)) {
-			reject("insert a valid destination email adress");
-		}
 
 		const toArray = to.split(",");
 
@@ -30,7 +28,7 @@ const sendEmail = (user, to, text, pass) => {
 			return !isEmail(tos.trim());
 		});
 		if (invalidEmail.length > 0) {
-			reject("insert valid receiver email adress");
+			reject("insert valid destination email addresses");
 		}
 
 		const transporter = nodemailer.createTransport(
@@ -44,14 +42,19 @@ const sendEmail = (user, to, text, pass) => {
 		const mailOptions = {
 			from: user,
 			to,
-			subject: "Email from testing API",
+			subject,
 			text
 		};
 
 		transporter.sendMail(mailOptions, function(error, info) {
 			try {
-				const response = { Sucess: "Email sent " + info.response };
-				resolve(response);
+				const { response, accepted, rejected } = info;
+				const myResponse = {
+					success: "Email sent " + response,
+					accepted,
+					rejected
+				};
+				resolve(myResponse);
 			} catch (er) {
 				reject(error);
 			}

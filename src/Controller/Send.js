@@ -1,12 +1,13 @@
+"use strict";
 const sendEmail = require("./Functions/sendEmail");
 
 const Send = {
-	async sendOne(req, res) {
+	async send(req, res) {
 		try {
 			const [user, pass] = req.auth;
-			const { to, text } = req.query;
+			const { to, text, subject } = req.query;
 
-			const response = await sendEmail(user, to, text, pass);
+			const response = await sendEmail(user, to, subject, text, pass);
 			return res.status(200).send(response);
 		} catch (er) {
 			if (er.responseCode === 535) {

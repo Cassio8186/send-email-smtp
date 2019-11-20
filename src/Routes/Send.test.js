@@ -4,27 +4,43 @@ const request = require("supertest")("localhost:3000");
 const email = {
 	user: "justtestthisapi@gmail.com",
 	to: "justtestthisapi@gmail.com",
-	tomany: "justtestthisapi@gmail.com",
+	tomany: "justtestthisapi@gmail.com, kkeaeman.test@gmail.com",
 	text: "Testing with jest",
-	pass: "justreallytestit"
+	pass: "justreallytestit",
+	subject: "API test subject"
 };
-const { user, to, text, pass } = email;
+const { user, to, tomany, text, pass, subject } = email;
 
 describe("POST /Send", () => {
-	test("responds with email sucess", async () => {
+	test("responds with email success", async () => {
 		const response = await request
 			.post("/send/")
 			.auth(user, pass, { type: "basic" })
 			.query({ to })
-			.query({ text });
+			.query({ text })
+			.query({ subject });
 
+		expect(response.body.success).toBeTruthy();
 		expect(response.status).toBe(200);
-		expect(response.body.Sucess).toBeTruthy();
 	});
 });
-//TODO - Add send with many receivers
+
+describe("POST /Send with many emails", () => {
+	test("responds with email success", async () => {
+		const response = await request
+			.post("/send/")
+			.auth(user, pass, { type: "basic" })
+			.query({ to: tomany })
+			.query({ text })
+			.query({ subject });
+
+		expect(response.body.success).toBeTruthy();
+		expect(response.status).toBe(200);
+	});
+});
+
 describe("POST /Send missing all informations", () => {
-	test("responds with error due ", async () => {
+	test("responds with error informations not fulfilled ", async () => {
 		const response = await request
 			.post("/send/")
 			.query({ user })
@@ -39,13 +55,14 @@ describe("POST /Send missing all informations", () => {
 });
 
 describe("POST /Send  with wrong password", () => {
-	test("responds with failure", async () => {
+	test("responds wrong password error", async () => {
 		const response = await request
 			.post("/send/")
 			.query({ user })
 			.query({ text })
 			.auth(user, "Wrong password", { type: "basic" })
-			.query({ to });
+			.query({ to })
+			.query({ subject });
 
 		expect(response.status).toEqual(401);
 		expect(response.body.Error).toBeTruthy();
@@ -63,32 +80,49 @@ describe("POST /Send  with wrong password", () => {
 });
 
 describe("POST /Send without authentication", () => {
-	test("responds with failure", async () => {
+	test("responds with non-authenthicated error", async () => {
 		const response = await request
 			.post("/send/")
 			.query({ user })
 			.query({ text })
-			.query({ to });
+			.query({ to })
+			.query({ subject });
 
 		expect(response.status).toEqual(401);
 		expect(response.body.Error).toBeTruthy();
 		expect(response.body).toMatchObject({ Error: "Please, authenticate" });
 	});
 });
+describe("POST /Send a invalid destination of many email addresses", () => {
+	test("responds with invalid destination address", async () => {
+		const response = await request
+			.post("/send/")
+			.auth(user, pass, { type: "basic" })
+			.query({ to: "justtestit@gmail.com, thisiswrongemail" })
+			.query({ text })
+			.query({ subject });
 
-describe("POST /Send invalid sender email adress", () => {
-	test("responds with failure", async () => {
+		expect(response.status).toBe(401);
+		expect(response.body).toStrictEqual({
+			Error: "insert valid destination email addresses"
+		});
+	});
+});
+
+describe("POST /Send a invalid destination email addresses", () => {
+	test("responds with invalid destination email address error", async () => {
 		const response = await request
 			.post("/send/")
 			.auth(user, pass, { type: "basic" })
 			.query({ user })
 			.query({ text })
-			.query({ to: "wrongemailbro" });
+			.query({ to: "wrongemailbro" })
+			.query({ subject });
 
 		expect(response.status).toEqual(401);
 		expect(response.body.Error).toBeTruthy();
 		expect(response.body).toMatchObject({
-			Error: "insert a valid sender email adress"
+			Error: "insert valid destination email addresses"
 		});
 	});
 });

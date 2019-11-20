@@ -1,5 +1,5 @@
+"use strict";
 const auth = (req, res, next) => {
-	//TODO put decode user into a middleware
 	if (!req.headers.authorization) {
 		return res.status(401).send({ Error: "Please, authenticate" });
 	}
