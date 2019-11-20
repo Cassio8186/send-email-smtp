@@ -1,21 +1,12 @@
 "use strict";
 const Send = require("express").Router();
-
+const auth = require("../middleware/auth");
 const sendEmail = require("../Controller/sendEmail");
 
-Send.post("/send", async (req, res) => {
+Send.post("/send", auth, async (req, res) => {
 	try {
-		//TODO put decode user into a middleware
-		if (!req.headers.authorization) {
-			return res.status(401).send({ Error: "Please, authenticate" });
-		}
-		const authDecoded = req.headers.authorization.replace("Basic ", "");
-		const auth = Buffer.from(authDecoded, "base64").toString("ascii");
-		const arrayAuth = auth.split(":");
-		const [user, pass] = arrayAuth;
-
+		const [user, pass] = req.auth;
 		const { to, text } = req.query;
-
 		const response = await sendEmail(user, to, text, pass);
 		return res.status(200).send(response);
 	} catch (er) {
