@@ -29,6 +29,7 @@ describe("POST /Send missing all informations", () => {
 			.query({ user })
 			.query({ text })
 			.auth(user, pass, { type: "basic" });
+
 		expect(response.status).toEqual(401);
 		expect(response.body).toStrictEqual({
 			Error: "informations not fulfilled"

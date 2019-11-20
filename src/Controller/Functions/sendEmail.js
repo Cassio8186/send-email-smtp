@@ -2,6 +2,7 @@
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
 const { isEmail } = require("validator");
+
 const sendEmail = (user, to, text, pass) => {
 	return new Promise((resolve, reject) => {
 		if (
@@ -18,6 +19,7 @@ const sendEmail = (user, to, text, pass) => {
 		if (!isEmail(to)) {
 			reject("insert a valid sender email adress");
 		}
+
 		const transporter = nodemailer.createTransport(
 			smtpTransport({
 				service: "gmail",
