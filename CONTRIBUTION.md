@@ -43,5 +43,3 @@ Work in Progress pull requests are also welcome to get feedback early on, or if 
 - [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
 - [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
 - [GitHub Help](https://help.github.com)
-
-This contribution guide is based on: [TiagoDanin contributing guide](https://github.com/TiagoDanin/Add-License-Bot/blob/master/CONTRIBUTING.md)
