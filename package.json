@@ -13,7 +13,8 @@
     "dev": "nodemon ./server.js",
     "lint": "eslint \"./**/*.js\" --fix",
     "prettier": "prettier \"./**/*.{js,html,css}\" --write",
-    "fix": "yarn lint && yarn prettier"
+    "fix": "yarn lint && yarn prettier",
+    "test": "yarn fix && jest"
   },
   "dependencies": {
     "express": "^4.17.1",

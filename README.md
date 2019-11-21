@@ -17,10 +17,10 @@ password:justreallytestit
 
 You can test it in [Swagger UI](https://send-email-smtp-cas.herokuapp.com/)
 
-## Technologies
+## Main Technologies
 
 - Node Js (Express)
-- Unit Test (Jest )
+- Unit Test (Jest)
 - Swagger UI
 
 ## To run the project
@@ -36,4 +36,7 @@ You can test it in [Swagger UI](https://send-email-smtp-cas.herokuapp.com/)
 
 ---
 
-If you think you anything in this project could be better, please submit an issue or even a pull request, your help is more than welcome.
+## Contribution Guide
+
+If you think you anything in this project could be better, please check
+[Contribution Guide](CONTRIBUTION.md)
