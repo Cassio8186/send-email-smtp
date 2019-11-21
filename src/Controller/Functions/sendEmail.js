@@ -4,12 +4,20 @@ const smtpTransport = require("nodemailer-smtp-transport");
 const { isEmail } = require("validator");
 
 /**
- *
+ * @typedef {object} SuccessMessage
+ * @property {string} success - success message
+ * @property {Array<string>} accepted - recipient addresses that were accepted by the server
+ * @property {Array<string>} rejected - recipient addresses that were rejected by the server
+ */
+
+/**
+ * @function sendEmail
  * @param {string} user
  * @param {string} to
  * @param {string} subject
  * @param {string} text
  * @param {string} pass
+ * @returns {Promise<SuccessMessage>} SMTP response.
  */
 const sendEmail = (user, to, subject, text, pass) => {
 	return new Promise((resolve, reject) => {
