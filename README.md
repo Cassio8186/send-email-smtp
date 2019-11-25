@@ -40,3 +40,11 @@ You can test it in [Swagger UI](https://send-email-smtp-cas.herokuapp.com/)
 
 If you think you anything in this project could be better, please check
 [Contribution Guide](CONTRIBUTION.md)
+
+## Next Steps
+
+- [ ] Convert this project to typescript
+- [ ] Add smtp routes to most known e-mail services.
+- [ ] Add smtp route that allows user to define its own smtp configuration.
+- [ ] Add attachment options to routes
+- [ ] Add possibility to use HTML in email text message.
