@@ -1,7 +1,9 @@
 "use strict";
-const nodemailer = require("nodemailer");
-const smtpTransport = require("nodemailer-smtp-transport");
-const { isEmail } = require("validator");
+import nodemailer from "nodemailer";
+import smtpTransport from "nodemailer-smtp-transport";
+import validator from "validator";
+import { successResponse } from "response";
+const { isEmail } = validator;
 
 /**
  * @typedef {object} SuccessMessage
@@ -10,17 +12,14 @@ const { isEmail } = require("validator");
  * @property {Array<string>} rejected - recipient addresses that were rejected by the server
  */
 
-/**
- * @function sendEmail
- * @param {string} user
- * @param {string} to
- * @param {string} subject
- * @param {string} text
- * @param {string} pass
- * @returns {Promise<SuccessMessage>} SMTP response.
- */
-const sendEmail = (user, to, subject, text, pass) => {
-	return new Promise((resolve, reject) => {
+const sendEmail = (
+	user: string,
+	to: string,
+	subject: string,
+	text: string,
+	pass: string
+) => {
+	return new Promise<successResponse>((resolve, reject) => {
 		if (
 			user === undefined ||
 			to === undefined ||
@@ -57,7 +56,7 @@ const sendEmail = (user, to, subject, text, pass) => {
 		transporter.sendMail(mailOptions, function(error, info) {
 			try {
 				const { response, accepted, rejected } = info;
-				const myResponse = {
+				const myResponse: successResponse = {
 					success: "Email sent " + response,
 					accepted,
 					rejected
@@ -70,4 +69,4 @@ const sendEmail = (user, to, subject, text, pass) => {
 	});
 };
 
-module.exports = sendEmail;
+export default sendEmail;

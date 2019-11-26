@@ -1,5 +1,8 @@
 "use strict";
-const request = require("supertest")("localhost:3000");
+import request from "supertest";
+
+const baseUri = "localhost:3000";
+const timeOut = 10000;
 
 const email = {
 	user: "justtestthisapi@gmail.com",
@@ -12,36 +15,44 @@ const email = {
 const { user, to, tomany, text, pass, subject } = email;
 
 describe("POST /Send", () => {
-	test("responds with email success", async () => {
-		const response = await request
-			.post("/send/")
-			.auth(user, pass, { type: "basic" })
-			.query({ to })
-			.query({ text })
-			.query({ subject });
+	test(
+		"responds with email success",
+		async () => {
+			const response = await request(baseUri)
+				.post("/send/")
+				.auth(user, pass, { type: "basic" })
+				.query({ to })
+				.query({ text })
+				.query({ subject });
 
-		expect(response.body.success).toBeTruthy();
-		expect(response.status).toBe(200);
-	});
+			expect(response.body.success).toBeTruthy();
+			expect(response.status).toBe(200);
+		},
+		timeOut
+	);
 });
 
 describe("POST /Send with many emails", () => {
-	test("responds with email success", async () => {
-		const response = await request
-			.post("/send/")
-			.auth(user, pass, { type: "basic" })
-			.query({ to: tomany })
-			.query({ text })
-			.query({ subject });
+	test(
+		"responds with email success",
+		async () => {
+			const response = await request(baseUri)
+				.post("/send/")
+				.auth(user, pass, { type: "basic" })
+				.query({ to: tomany })
+				.query({ text })
+				.query({ subject });
 
-		expect(response.body.success).toBeTruthy();
-		expect(response.status).toBe(200);
-	});
+			expect(response.body.success).toBeTruthy();
+			expect(response.status).toBe(200);
+		},
+		timeOut
+	);
 });
 
 describe("POST /Send missing all informations", () => {
 	test("responds with error informations not fulfilled ", async () => {
-		const response = await request
+		const response = await request(baseUri)
 			.post("/send/")
 			.query({ user })
 			.query({ text })
@@ -56,7 +67,7 @@ describe("POST /Send missing all informations", () => {
 
 describe("POST /Send  with wrong password", () => {
 	test("responds wrong password error", async () => {
-		const response = await request
+		const response = await request(baseUri)
 			.post("/send/")
 			.query({ user })
 			.query({ text })
@@ -81,7 +92,7 @@ describe("POST /Send  with wrong password", () => {
 
 describe("POST /Send without authentication", () => {
 	test("responds with non-authenthicated error", async () => {
-		const response = await request
+		const response = await request(baseUri)
 			.post("/send/")
 			.query({ user })
 			.query({ text })
@@ -95,7 +106,7 @@ describe("POST /Send without authentication", () => {
 });
 describe("POST /Send a invalid destination of many email addresses", () => {
 	test("responds with invalid destination address", async () => {
-		const response = await request
+		const response = await request(baseUri)
 			.post("/send/")
 			.auth(user, pass, { type: "basic" })
 			.query({ to: "justtestit@gmail.com, thisiswrongemail" })
@@ -111,7 +122,7 @@ describe("POST /Send a invalid destination of many email addresses", () => {
 
 describe("POST /Send a invalid destination email addresses", () => {
 	test("responds with invalid destination email address error", async () => {
-		const response = await request
+		const response = await request(baseUri)
 			.post("/send/")
 			.auth(user, pass, { type: "basic" })
 			.query({ user })

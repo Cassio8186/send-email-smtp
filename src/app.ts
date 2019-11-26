@@ -1,8 +1,8 @@
 "use strict";
-const express = require("express");
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./Swagger/swagger.json");
-const sendRoute = require("./Routes/Send");
+import express from "express";
+import * as swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./Swagger/swagger.json";
+import sendRoute from "./Routes/Send";
 
 const app = express();
 
@@ -22,4 +22,4 @@ if (!process.env.PORT) {
 	app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 }
 
-module.exports = app;
+export default app;

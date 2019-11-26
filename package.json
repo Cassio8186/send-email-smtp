@@ -9,12 +9,15 @@
     "node": "12.13.0"
   },
   "scripts": {
-    "start": "node ./server.js",
-    "dev": "nodemon ./server.js",
-    "lint": "eslint \"./**/*.js\" --fix",
-    "prettier": "prettier \"./**/*.{js,html,css}\" --write",
-    "fix": "yarn lint && yarn prettier",
-    "test": "yarn fix && jest"
+    "start": "node ./dist/server.js",
+    "dev": "nodemon ./dist/server.js",
+    "lint": "eslint \"./**/*.ts\" --fix",
+    "prettier": "prettier \"./**/*.{ts,js,html,css}\" --write",
+    "format": "yarn lint && yarn prettier",
+    "test": "yarn lint && jest",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "build": "yarn lint && yarn build-ts && yarn prettier"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -24,11 +27,22 @@
     "validator": "^12.1.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.2",
     "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.12",
+    "@types/nodemailer": "^6.2.2",
+    "@types/nodemailer-smtp-transport": "^2.7.4",
+    "@types/supertest": "^2.0.8",
+    "@types/swagger-ui-express": "^4.1.0",
+    "@types/validator": "^12.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
     "eslint": "^6.7.1",
     "jest": "^24.9.0",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
   }
 }

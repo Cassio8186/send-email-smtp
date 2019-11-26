@@ -20,6 +20,7 @@ You can test it in [Swagger UI](https://send-email-smtp-cas.herokuapp.com/)
 ## Main Technologies
 
 - Node Js (Express)
+- Typescript
 - Unit Test (Jest)
 - Swagger UI
 
