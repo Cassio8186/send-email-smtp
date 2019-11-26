@@ -17,7 +17,7 @@
     "test": "yarn lint && jest",
     "build-ts": "yarn tsc",
     "watch-ts": "tsc -w",
-    "watch": "",
+    "watch": "concurrently -k -n typescript-lint,watch-dev \"yarn watch-ts\" \"yarn dev\"",
     "build": "yarn build-ts",
     "build:dev": "yarn lint && yarn build-ts && yarn prettier"
   },
