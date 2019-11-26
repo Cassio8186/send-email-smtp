@@ -1,6 +1,6 @@
 "use strict";
 import express from "express";
-import * as swaggerUi from "swagger-ui-express";
+import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./Swagger/swagger.json";
 import sendRoute from "./Routes/Send";
 
