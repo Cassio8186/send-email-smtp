@@ -44,7 +44,7 @@ If you think you anything in this project could be better, please check
 
 ## Next Steps
 
-- [ ] Convert this project to typescript
+- [X] Convert this project to typescript
 - [ ] Add smtp routes to most known e-mail services.
 - [ ] Add smtp route that allows user to define its own smtp configuration.
 - [ ] Add attachment options to routes
