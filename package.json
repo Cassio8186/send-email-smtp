@@ -1,12 +1,12 @@
 {
   "name": "send-email-smtp",
   "version": "0.3.0",
-  "main": "server.js",
+  "main": "./dist/server.js",
   "repository": "https://github.com/Cassio8186/send-email-smtp.git",
   "author": "cassio8186 <cassio8186@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": "12.13.0"
+    "node": "12.x"
   },
   "scripts": {
     "start": "node ./dist/server.js",
