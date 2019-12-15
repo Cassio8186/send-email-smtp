@@ -19,6 +19,7 @@
 		"for-direction": "error",
 		"no-unused-vars": "warn",
 		"no-unused-expressions": "warn",
-		"no-unused-labels": "warn"
+		"no-unused-labels": "warn",
+		"@typescript-eslint/explicit-function-return-type": "off"
 	}
 }
